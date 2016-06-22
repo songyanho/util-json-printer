@@ -21,7 +21,7 @@
       <h3>Basic util-json-printer Demo</h3>
       <demo-snippet>
         <template is="dom-bind" id="app">
-          <iron-ajax auto="true" url="http://jsonplaceholder.typicode.com/posts/1" handle-as="json" last-response="{{ajaxResponse}}" verbose></iron-ajax>
+          <iron-ajax auto="true" url="sample.json" handle-as="json" last-response="{{ajaxResponse}}" verbose></iron-ajax>
           <util-json-printer data="{{ajaxResponse}}"></util-json-printer>
         </template>
       </demo-snippet>
