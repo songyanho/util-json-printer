@@ -1,0 +1,140 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" type="css" href="../highlightjs/styles/arduino-light.css">
+<script src="../highlightjs/highlight.pack.min.js"></script>
+<!--
+
+`<util-json-printer>` print pretty JSON and updates its value through dynamic binding
+
+### Example
+
+```
+<util-json-printer data="{{ajaxResponse}}"></util-json-printer>
+```
+
+@demo
+@demo demo/index.html
+-->
+<dom-module id="util-json-printer">
+  <template>
+    <style>
+      :host::content .hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 0.5em;
+        color: #333;
+        background: #f8f8f8;
+      }
+      
+      :host::content .hljs-comment,
+      :host::content .hljs-quote {
+        color: #998;
+        font-style: italic;
+      }
+      
+      :host::content .hljs-keyword,
+      :host::content .hljs-selector-tag,
+      :host::content .hljs-subst {
+        color: #333;
+        font-weight: bold;
+      }
+      
+      :host::content .hljs-number,
+      :host::content .hljs-literal,
+      :host::content .hljs-variable,
+      :host::content .hljs-template-variable,
+      :host::content .hljs-tag .hljs-attr {
+        color: #008080;
+      }
+      
+      :host::content .hljs-string,
+      :host::content .hljs-doctag {
+        color: #d14;
+      }
+      
+      :host::content .hljs-title,
+      :host::content .hljs-section,
+      :host::content .hljs-selector-id {
+        color: #900;
+        font-weight: bold;
+      }
+      
+      :host::content .hljs-subst {
+        font-weight: normal;
+      }
+      
+      :host::content .hljs-type,
+      :host::content .hljs-class .hljs-title {
+        color: #458;
+        font-weight: bold;
+      }
+      
+      :host::content .hljs-tag,
+      :host::content .hljs-name,
+      :host::content .hljs-attribute {
+        color: #000080;
+        font-weight: normal;
+      }
+      
+      :host::content .hljs-regexp,
+      :host::content .hljs-link {
+        color: #009926;
+      }
+      
+      :host::content .hljs-symbol,
+      :host::content .hljs-bullet {
+        color: #990073;
+      }
+      
+      :host::content .hljs-built_in,
+      :host::content .hljs-builtin-name {
+        color: #0086b3;
+      }
+      
+      :host::content .hljs-meta {
+        color: #999;
+        font-weight: bold;
+      }
+      
+      :host::content .hljs-deletion {
+        background: #fdd;
+      }
+      
+      :host::content .hljs-addition {
+        background: #dfd;
+      }
+      
+      :host::content .hljs-emphasis {
+        font-style: italic;
+      }
+      
+      :host::content .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+    <pre><code id="code" class="json">{{pretty}}</code></pre>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'util-json-printer',
+      properties: {
+        data: {
+          type: Object,
+        },
+      },
+      observers: [
+        '_dataChanged(data)'
+      ],
+      ready: function () {
+        this.pretty = "";
+        if (this.data) {
+          this._dataChanged(this.data);
+        }
+      },
+      _dataChanged: function (data) {
+        this.pretty = JSON.stringify(data, null, '\t');
+        hljs.highlightBlock(this.$.code);
+      }
+    });
+  </script>
+</dom-module>
